@@ -1,32 +1,52 @@
 package machine;
 
 import java.util.Scanner;
+import static java.lang.Math.min;
+
 
 public class CoffeeMachine {
-    public static void main(String[] args) {
 
-        System.out.println("Starting to make a coffee");
-        System.out.println("Grinding coffee beans");
-        System.out.println("Boiling water");
-        System.out.println("Mixing boiled water with crushed coffee beans");
-        System.out.println("Pouring coffee into the cup");
-        System.out.println("Pouring some milk into the cup");
-        System.out.println("Coffee is ready!");
+    private  final Scanner scanner;
+
+    public CoffeeMachine(Scanner scanner) {
+        this.scanner = scanner;
+
+    }
+    public static void main(String[] args) {
+        CoffeeMachine coffee = new CoffeeMachine(new Scanner(System.in));
+        coffee();
+    }
+
+    public static void coffee() {
 
         Scanner scanner = new Scanner(System.in);
-        int a;
 
+        int water, milk, beans, requestedCups, availableCups;
+
+        System.out.println("Write how many ml of water the coffee machine has: ");
+        water = scanner.nextInt();
+        System.out.println("Write how many ml of milk the coffee machine has:  ");
+        milk = scanner.nextInt();
+        System.out.println("Write how many grams of coffee beans the coffee machine has: ");
+        beans = scanner.nextInt();
         System.out.println("Write how many cups of coffee you will need: ");
-        a = scanner.nextInt();
+        requestedCups = scanner.nextInt();
 
-        System.out.println("For " + a + " cups of coffee you will need: ");
-        int water = a * 200; //calc water
-        int milk = a * 50;  // calc milk
-        int beans = a * 15; // calc beans
+        availableCups = availableCoffee(water, milk, beans);
 
-        System.out.println("" + water + " ml of water");
-        System.out.println("" + milk + " ml of milk");
-        System.out.println("" + beans + " g of coffee beans");
+        if (requestedCups == availableCups) {
+            System.out.println("Yes, I can make that amount of coffee");
+        } else if (requestedCups > availableCups) {
+            System.out.println("No I can only make " + availableCups + " cup(s) of coffee");
+        } else if (requestedCups < availableCups) {
+            System.out.println("Yes I can make that amount of coffee + (and even) " + (availableCups - requestedCups) + " more than that)");
+        }
+    }
+    public static int availableCoffee(int water, int milk, int beans) {
+        return min(water / 200, min (milk / 50, beans /15));
+    }
 
+    private void print(String msg) {
+        System.out.println(msg);
     }
 }
