@@ -63,7 +63,7 @@ public class CoffeeMachine {
     private void admin() {
         if (!authenticate()) {
             System.out.println("Username or password were incorrect");
-            System.out.println("fucking scrub");
+           // System.out.println("fucking scrub");
             return;
         }
 
